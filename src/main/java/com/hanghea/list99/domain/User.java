@@ -1,6 +1,7 @@
 package com.hanghea.list99.domain;
 
 
+import com.hanghea.list99.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,8 @@ public class User extends Timestamped{
     @OneToMany(mappedBy = "user")
     private List<Plan> plans;
 
+    public User(UserDto userDto){
+        this.userId = userDto.getUserId();
+        this.userPw = userDto.getUserPw();
+    }
 }
