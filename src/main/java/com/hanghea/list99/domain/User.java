@@ -4,6 +4,7 @@ package com.hanghea.list99.domain;
 import com.hanghea.list99.dto.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
+@Setter
 public class User extends Timestamped{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
