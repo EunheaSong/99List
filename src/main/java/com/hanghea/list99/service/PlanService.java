@@ -20,6 +20,7 @@ public class PlanService {
     public void createPlans(List<PlanDto.Request> requestList, User user) {
         for (PlanDto.Request request : requestList) {
             Plan plan = new Plan(request, user);
+            validatePlan(plan);
             planRepository.save(plan);
         }
     }
@@ -33,5 +34,27 @@ public class PlanService {
         }
 
         return responseList;
+    }
+
+    public void validatePlan(Plan plan){
+        String title = plan.getTitle();
+        String content = plan.getContent();
+        int stars = plan.getStars();
+
+
+        if (title == null || title.equals("")) {
+            throw new IllegalStateException("제목이 올바르지 않습니다.");
+        }
+//        if (title == null || title.equals("")) {
+//            throw new IllegalArgumentException("음식 명이 올바르지 않습니다.");
+//        }
+        if (content == null || content.equals("")) {
+            throw new IllegalStateException("내용이 올바르지 않습니다.");
+        }
+
+        if (stars < 0 || stars > 5){
+            throw new IllegalStateException("중요도의 범위가 올바르지 않습니다.");
+        }
+
     }
 }
