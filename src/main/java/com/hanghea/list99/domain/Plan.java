@@ -1,6 +1,7 @@
 package com.hanghea.list99.domain;
 
 
+import com.hanghea.list99.dto.PlanDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,5 +32,11 @@ public class Plan extends Timestamped{
     @JoinColumn(name = "USER_ID")
     private User user;
 
-
+    public Plan(PlanDto.Request request, User user){
+        this.title = request.getTitle();
+        this.content = request.getContent();
+        this.stars = request.getStars();
+        this.user = user;
+        this.status = false;
+    }
 }
