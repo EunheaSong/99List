@@ -71,12 +71,19 @@ public class PlanService {
         plan.update(request);
     }
     // 체크 박스
+//    @Transactional
+//    public void check(Long planId, PlanDto.Response response) {
+//        Plan planCheck = planRepository.findById(planId).orElseThrow(
+//                () -> new IllegalArgumentException("PlanId가 존재하지 않습니다.")
+//        );
+//        planCheck.check(response);
+//    }
+
     @Transactional
-    public void check(Long planId, PlanDto.Response response) {
-        Plan planCheck = planRepository.findById(planId).orElseThrow(
+    public Plan check(Long planId) {
+        return planRepository.findById(planId).orElseThrow(
                 () -> new IllegalArgumentException("PlanId가 존재하지 않습니다.")
         );
-        planCheck.check(response);
     }
 
 }

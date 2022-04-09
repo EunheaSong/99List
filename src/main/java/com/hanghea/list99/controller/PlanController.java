@@ -48,11 +48,23 @@ public class PlanController {
         return planId;
     }
     // 체크 박스 흠.. 잘모르겠음. 도움이 필요해요 ㅠㅠ
-    @PutMapping("/api/plan/{planId}/status")
-    public Long checkPlan(@PathVariable Long planId, @RequestBody PlanDto.Response response) {
-        planService.check(planId, response);
-        return planId;
+//    @PutMapping("/api/plan/{planId}/status")
+//    public Long checkPlan(@PathVariable Long planId, @RequestBody PlanDto.Response response) {
+//        planService.check(planId, response);
+//        return planId;
+//    }
+    @PatchMapping("/api/plan/{planId}/status")
+    public Boolean checkPlan(@PathVariable Long planId) {
+        Plan p = planService.check(planId);
+        if (p.getStatus() == false){
+            p.setStatus(true);
+        } else {
+            p.setStatus(false);
+        }
+        return p.getStatus();
     }
+
+
     // plan 삭제
     @DeleteMapping("/api/plan/{planId}")
     public Long deletePlan(@PathVariable Long planId) {
