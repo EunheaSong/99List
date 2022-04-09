@@ -8,6 +8,7 @@ import com.hanghea.list99.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PlanServiceTest {
 
     @Autowired
@@ -35,11 +37,11 @@ class PlanServiceTest {
     @BeforeEach
     void 유저등록() {
         User user1 = new User();
-        user1.setUserId("유저아이디");
+        user1.setUserId("유저아이디1");
         user1.setUserPw("유저비밀번호");
 
         User user2 = new User();
-        user2.setUserId("유저아이디");
+        user2.setUserId("유저아이디2");
         user2.setUserPw("유저비밀번호");
 
         userRepository.save(user1);

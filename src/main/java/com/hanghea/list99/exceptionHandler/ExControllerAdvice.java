@@ -15,6 +15,10 @@ public class ExControllerAdvice {
         return new ErrorResult("false", e.getMessage());
     }
 
-
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalStateException.class)
+    public ErrorResult illegalStateHandle(IllegalStateException e){
+        return new ErrorResult("false", e.getMessage());
+    }
 
 }

@@ -20,9 +20,7 @@ class UserServiceTest {
     @Test
     void 등록() {
         //given
-        User user = new User();
-        user.setUserId("유저아이디");
-        user.setUserPw("유저비밀번호");
+        User user = new User("유저아이디", "비밀번호");
 
         //when
         userRepository.save(user);
