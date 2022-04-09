@@ -6,6 +6,10 @@ import com.hanghea.list99.domain.User;
 import com.hanghea.list99.dto.PlanDto;
 import com.hanghea.list99.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,15 +29,18 @@ public class PlanService {
 
     }
 
-    public List<PlanDto.Response> getPlans(User user) {
-        List<Plan> planList = planRepository.findByUser(user);
-        List<PlanDto.Response> responseList = new ArrayList<>();
-        for (Plan plan : planList) {
-            PlanDto.Response response = new PlanDto.Response(plan);
-            responseList.add(response);
-        }
+    public Page<Plan> getPlans(Long userId, int page, int size, String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Plan> planList = planRepository.findAllByUserId(userId, pageable);
+//        Page<PlanDto.Response> responseList = new ArrayList<>();
+//        for (Plan plan : planList) {
+//            PlanDto.Response response = new PlanDto.Response(plan);
+//            responseList.add(response);
+//        }
 
-        return responseList;
+        return planList;
     }
 
     public void validatePlan(Plan plan) {
