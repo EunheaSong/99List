@@ -42,8 +42,6 @@ class PlanServiceTest {
         user2.setUserId("유저아이디");
         user2.setUserPw("유저비밀번호");
 
-
-        //when
         userRepository.save(user1);
         userRepository.save(user2);
     }
@@ -56,20 +54,18 @@ class PlanServiceTest {
         request1.setContent("내용1");
         request1.setStars(4);
 
-
         PlanDto.Request request2 = new PlanDto.Request();
         request2.setTitle("타이틀2");
         request2.setContent("내용2");
         request2.setStars(1);
 
-        List<PlanDto.Request> requestList = new ArrayList<>();
-        requestList.add(request1);
-        requestList.add(request2);
 
         User savedUser = userRepository.findAll().get(0);
 
         //when
-        planService.createPlans(requestList, savedUser);
+        planService.createPlans(request1, savedUser);
+
+        planService.createPlans(request2, savedUser);
 
         //given
         assertThat(planRepository.findAll().size()).isEqualTo(2);
@@ -80,8 +76,6 @@ class PlanServiceTest {
         assertThat(plan1.getContent()).isEqualTo(request1.getContent());
         assertThat(plan1.getContent()).isEqualTo("내용1");
         assertThat(plan1.getUser()).isEqualTo(savedUser);
-
-
     }
 
     @Test
@@ -98,24 +92,18 @@ class PlanServiceTest {
         request2.setContent("내용2");
         request2.setStars(1);
 
-        List<PlanDto.Request> requestList1 = new ArrayList<>();
-        requestList1.add(request1);
-        requestList1.add(request2);
 
         User savedUser1 = userRepository.findAll().get(0);
-        planService.createPlans(requestList1, savedUser1);
+        planService.createPlans(request1, savedUser1);
+        planService.createPlans(request2, savedUser1);
 
         PlanDto.Request request3 = new PlanDto.Request();
         request3.setTitle("타이틀3");
         request3.setContent("내용3");
         request3.setStars(1);
 
-
-        List<PlanDto.Request> requestList2 = new ArrayList<>();
-        requestList2.add(request3);
-
         User savedUser2 = userRepository.findAll().get(1);
-        planService.createPlans(requestList2, savedUser2);
+        planService.createPlans(request3, savedUser2);
 
         //when
         List<PlanDto.Response> responseList1 = planService.getPlans(savedUser1);
@@ -136,15 +124,12 @@ class PlanServiceTest {
         request1.setContent("내용1");
         request1.setStars(4);
 
-        List<PlanDto.Request> requestList1 = new ArrayList<>();
-        requestList1.add(request1);
-
         User savedUser1 = userRepository.findAll().get(0);
 
         //when
         IllegalStateException e = assertThrows(
                 IllegalStateException.class,
-                () -> planService.createPlans(requestList1, savedUser1)
+                () -> planService.createPlans(request1, savedUser1)
         );
 
         //then
@@ -158,15 +143,12 @@ class PlanServiceTest {
         request1.setContent("내용1");
         request1.setStars(4);
 
-        List<PlanDto.Request> requestList1 = new ArrayList<>();
-        requestList1.add(request1);
-
         User savedUser1 = userRepository.findAll().get(0);
 
         //when
         IllegalStateException e = assertThrows(
                 IllegalStateException.class,
-                () -> planService.createPlans(requestList1, savedUser1)
+                () -> planService.createPlans(request1, savedUser1)
         );
 
         //then
@@ -180,15 +162,12 @@ class PlanServiceTest {
         request1.setContent(null);
         request1.setStars(4);
 
-        List<PlanDto.Request> requestList1 = new ArrayList<>();
-        requestList1.add(request1);
-
         User savedUser1 = userRepository.findAll().get(0);
 
         //when
         IllegalStateException e = assertThrows(
                 IllegalStateException.class,
-                () -> planService.createPlans(requestList1, savedUser1)
+                () -> planService.createPlans(request1, savedUser1)
         );
 
         //then
@@ -202,15 +181,12 @@ class PlanServiceTest {
         request1.setContent("");
         request1.setStars(4);
 
-        List<PlanDto.Request> requestList1 = new ArrayList<>();
-        requestList1.add(request1);
-
         User savedUser1 = userRepository.findAll().get(0);
 
         //when
         IllegalStateException e = assertThrows(
                 IllegalStateException.class,
-                () -> planService.createPlans(requestList1, savedUser1)
+                () -> planService.createPlans(request1, savedUser1)
         );
 
         //then
@@ -224,15 +200,12 @@ class PlanServiceTest {
         request1.setContent("내용1");
         request1.setStars(-1);
 
-        List<PlanDto.Request> requestList1 = new ArrayList<>();
-        requestList1.add(request1);
-
         User savedUser1 = userRepository.findAll().get(0);
 
         //when
         IllegalStateException e = assertThrows(
                 IllegalStateException.class,
-                () -> planService.createPlans(requestList1, savedUser1)
+                () -> planService.createPlans(request1, savedUser1)
         );
 
         //then
@@ -247,15 +220,12 @@ class PlanServiceTest {
         request1.setContent("내용1");
         request1.setStars(6);
 
-        List<PlanDto.Request> requestList1 = new ArrayList<>();
-        requestList1.add(request1);
-
         User savedUser1 = userRepository.findAll().get(0);
 
         //when
         IllegalStateException e = assertThrows(
                 IllegalStateException.class,
-                () -> planService.createPlans(requestList1, savedUser1)
+                () -> planService.createPlans(request1, savedUser1)
         );
 
         //then

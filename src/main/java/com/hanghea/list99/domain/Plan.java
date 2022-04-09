@@ -39,6 +39,4 @@ public class Plan extends Timestamped{
         this.user = user;
         this.status = false;
     }
-
-
 }
