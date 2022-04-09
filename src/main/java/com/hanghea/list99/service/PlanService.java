@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,4 +62,21 @@ public class PlanService {
         }
 
     }
+    // plan 수정
+    @Transactional
+    public void update(Long planId, PlanDto.Request request) {
+        Plan plan = planRepository.findById(planId).orElseThrow(
+                () -> new IllegalArgumentException("PlanId가 존재하지 않습니다.")
+        );
+        plan.update(request);
+    }
+    // 체크 박스
+    @Transactional
+    public void check(Long planId, PlanDto.Response response) {
+        Plan planCheck = planRepository.findById(planId).orElseThrow(
+                () -> new IllegalArgumentException("PlanId가 존재하지 않습니다.")
+        );
+        planCheck.check(response);
+    }
+
 }

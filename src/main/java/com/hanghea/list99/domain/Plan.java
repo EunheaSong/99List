@@ -4,6 +4,7 @@ package com.hanghea.list99.domain;
 import com.hanghea.list99.dto.PlanDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -39,4 +40,14 @@ public class Plan extends Timestamped{
         this.user = user;
         this.status = false;
     }
+    public void update(PlanDto.Request request) {
+        this.title = request.getTitle();
+        this.content = request.getContent();
+        this.stars = request.getStars();
+    }
+
+    public void check(PlanDto.Response response) {
+        this.status = response.getStatus();
+    }
+
 }
