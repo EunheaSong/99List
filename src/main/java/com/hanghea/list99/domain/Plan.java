@@ -28,7 +28,7 @@ public class Plan extends Timestamped{
     @Column(nullable = false)
     private Boolean status;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     private User user;
 
