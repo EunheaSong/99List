@@ -60,7 +60,7 @@ public class UserService {
         }
 
         // 비밀번호 유효성 검사
-        Pattern passwordPattern = Pattern.compile("^[\\S]*$");
+        Pattern passwordPattern = Pattern.compile("^(?=.*\\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{6,20}$");
         Matcher passwordMatcher = passwordPattern.matcher(password);
         if(password.length() == 0){
             throw new IllegalArgumentException("비밀번호는 필수 입력값입니다.");
@@ -78,19 +78,26 @@ public class UserService {
         }
     }
 
-//    private UserDto generateUserResponseDto(User user) {
-//        return UserDto.builder()
-//                .id(user.getId())
-//                .userId(user.getUserId())
-//                .plans(user.getPlans())
-//                .build();
+    //유저 프로필 조회 .1
+    public UserDto getUserInfo(User user) {
+        return UserDto.builder()
+                .id(user.getId())
+                .userId(user.getUserId())
+                .build();
+    }
+
+    //유저 프로필 조회 .2
+//    public UserDto getUserInfo(User user) {
+//        UserDto userDto = new UserDto(user);
+//        return userDto;
 //    }
 
-    //유저 프로필 조회
-    @Transactional
-    public UserDto getUserInfo(User user) {
-        UserDto userDto = new UserDto(user);
-        return userDto;
+    //유저 탈퇴
+    public void remove (Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("사용자가 없습니다.")
+        );
+        userRepository.delete(user);
     }
 
 }
