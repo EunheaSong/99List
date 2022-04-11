@@ -37,8 +37,9 @@ public class PlanController {
 //    }
 
     @PostMapping("/api/plan")
-    public void createPlans(PlanDto.Request request){
-        User user = new User();
+    public void createPlans(@RequestBody PlanDto.Request request, @AuthenticationPrincipal UserDetailsImpl userDetails){
+
+        User user = userDetails.getUser();
         planService.createPlans(request, user);
     }
     // plan 수정
