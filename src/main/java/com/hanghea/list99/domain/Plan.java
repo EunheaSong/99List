@@ -41,7 +41,7 @@ public class Plan extends Timestamped{
         this.user = user;
         this.status = false;
 
-        user.getPlans().add(this);
+//        user.getPlans().add(this);
     }
     public void update(PlanDto.Request request) {
         this.title = request.getTitle();

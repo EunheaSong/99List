@@ -25,12 +25,16 @@ public class User extends Timestamped{
     @Column(nullable = false)
     private String userPw;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//    private List<Plan> plans;
+
+    //cascade remove 테스트
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Plan> plans;
 
     public User (String userId, String userPw){
         this.userId = userId;
         this.userPw = userPw;
-    }
 
+    }
 }

@@ -12,7 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+//@Controller
 @RequiredArgsConstructor
 public class PlanController {
 
@@ -36,11 +37,21 @@ public class PlanController {
 //        return planService.getPlans(user);
 //    }
 
+//    @PostMapping("/api/plan")
+//    public void createPlans(PlanDto.Request request){
+//        User user = new User();
+//        planService.createPlans(request, user);
+//    }
+
+    //plan 등록 테스트
     @PostMapping("/api/plan")
-    public void createPlans(PlanDto.Request request){
-        User user = new User();
-        planService.createPlans(request, user);
+    public void createPlans(@RequestBody PlanDto.Request request, @AuthenticationPrincipal UserDetailsImpl userDetails){
+
+        planService.createPlans(request, userDetails.getUser());
     }
+
+
+
     // plan 수정
     @PutMapping("/api/plan/{planId}")
     public Long updatePlan(@PathVariable Long planId, @RequestBody PlanDto.Request request) {
@@ -53,6 +64,7 @@ public class PlanController {
 //        planService.check(planId, response);
 //        return planId;
 //    }
+    //포스트맨에서 테스트 시 ,
     @PatchMapping("/api/plan/{planId}/status")
     public Boolean checkPlan(@PathVariable Long planId) {
         Plan p = planService.check(planId);
@@ -61,6 +73,7 @@ public class PlanController {
         } else {
             p.setStatus(false);
         }
+        planRepository.save(p);
         return p.getStatus();
     }
 

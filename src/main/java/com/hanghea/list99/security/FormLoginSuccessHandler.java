@@ -25,13 +25,13 @@ public class FormLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
         final String token = JwtTokenUtils.generateJwtToken(userDetails);
         response.addHeader(AUTH_HEADER, TOKEN_TYPE + " " + token);
 
-        //UserId, Nickname 내려주기
-        response.setContentType("application/json");
-        User user = userDetails.getUser();
-        UserDto responseDto = new UserDto(user);
-
-        String result = mapper.writeValueAsString(responseDto);
-        response.getWriter().write(result);
+        //UserId 내려주기
+//        response.setContentType("application/json");
+//        User user = userDetails.getUser();
+//        UserDto responseDto = new UserDto(user);
+//
+//        String result = mapper.writeValueAsString(responseDto);
+//        response.getWriter().write(result);
     }
 
 }
