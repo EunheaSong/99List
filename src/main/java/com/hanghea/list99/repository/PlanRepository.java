@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface PlanRepository extends JpaRepository<Plan, Long> {
 
     //    List<Plan> findByUser(User user);
-    //Page<Plan> findAllByUserId(Long userId, Pageable pageable);
-    List<Plan> findAllByUserId(Long userId);
+    Page<Plan> findAllByUserId(Long userId, Pageable pageable);
+//    List<Plan> findAllByUserId(Long userId);
 }
 
