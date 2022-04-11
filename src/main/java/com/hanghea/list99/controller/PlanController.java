@@ -8,6 +8,7 @@ import com.hanghea.list99.security.UserDetailsImpl;
 import com.hanghea.list99.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +39,11 @@ public class PlanController {
 
     //plan 등록 테스트
     @PostMapping("/api/plan")
-    public void createPlans(@RequestBody PlanDto.Request request, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<String> createPlans(@RequestBody PlanDto.Request request, @AuthenticationPrincipal UserDetailsImpl userDetails){
 
         User user = userDetails.getUser();
         planService.createPlans(request, user);
+        return ResponseEntity.ok().body("plan 등록 완료");
     }
     // plan 수정
     @PutMapping("/api/plan/{planId}")
