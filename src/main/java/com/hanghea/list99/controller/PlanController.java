@@ -12,6 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 //@Controller
 @RequiredArgsConstructor
@@ -21,27 +23,21 @@ public class PlanController {
     private final PlanRepository planRepository;
 
     @GetMapping("/api/plan")
-    public Page<Plan> getPlans(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("isAsc") boolean isAsc,
-            @AuthenticationPrincipal UserDetailsImpl userDetails
-    ){
-        Long userId = userDetails.getUser().getId();
-        page = page - 1 ;
-        return planService.getPlans(userId, page, size, sortBy, isAsc);
+//    public Page<Plan> getPlans(
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size,
+//            @RequestParam("sortBy") String sortBy,
+//            @RequestParam("isAsc") boolean isAsc,
+//            @AuthenticationPrincipal UserDetailsImpl userDetails
+//    ){
+//        Long userId = userDetails.getUser().getId();
+//        page = page - 1 ;
+//        return planService.getPlans(userId, page, size, sortBy, isAsc);
+//    }
+    public List<Plan> getPlans(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        User user = userDetails.getUser();
+        return planService.getPlans(user);
     }
-//    public List<PlanDto.Response> getPlans(){
-//        User user = new User();
-//        return planService.getPlans(user);
-//    }
-
-//    @PostMapping("/api/plan")
-//    public void createPlans(PlanDto.Request request){
-//        User user = new User();
-//        planService.createPlans(request, user);
-//    }
 
     //plan 등록 테스트
     @PostMapping("/api/plan")

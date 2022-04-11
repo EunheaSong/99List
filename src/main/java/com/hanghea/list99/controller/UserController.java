@@ -42,9 +42,9 @@ public class UserController {
 //    사용자 정보 조회 1.
     //get 요청을 보내면 안됐다.
     @PostMapping("/isLogin")
-    public ResponseEntity<UserDto> getUserProfile(@AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<String> getUserProfile(@AuthenticationPrincipal UserDetailsImpl userDetails){
         System.out.println(userDetails.getUsername());
-        return ResponseEntity.ok().body(userService.getUserInfo(userDetails.getUser()));
+        return ResponseEntity.ok().body(userDetails.getUsername());
     }
     //사용자 정보 조회 2.
 //    @GetMapping("/isLogin")
