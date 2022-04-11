@@ -1,12 +1,14 @@
 package com.hanghea.list99.service;
 
 import com.hanghea.list99.domain.User;
+import com.hanghea.list99.dto.UserDto;
 import com.hanghea.list99.dto.UserRequestDto;
 import com.hanghea.list99.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Optional;
@@ -74,6 +76,21 @@ public class UserService {
         if(!password.equals(confirmPassword)){
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+    }
+
+//    private UserDto generateUserResponseDto(User user) {
+//        return UserDto.builder()
+//                .id(user.getId())
+//                .userId(user.getUserId())
+//                .plans(user.getPlans())
+//                .build();
+//    }
+
+    //유저 프로필 조회
+    @Transactional
+    public UserDto getUserInfo(User user) {
+        UserDto userDto = new UserDto(user);
+        return userDto;
     }
 
 }

@@ -3,6 +3,7 @@ package com.hanghea.list99.security.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.hanghea.list99.security.UserDetailsImpl;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Date;
 
@@ -18,9 +19,12 @@ public final class JwtTokenUtils {
     // JWT 토큰의 유효기간: 3일 (단위: milliseconds)
     private static final int JWT_TOKEN_VALID_MILLI_SEC = JWT_TOKEN_VALID_SEC * 1000;
 
+    @Value("${jwt.secret}")
+    public static String jwtSecret;
+
     public static final String CLAIM_EXPIRED_DATE = "EXPIRED_DATE";
     public static final String CLAIM_USER_NAME = "USER_NAME";
-    public static final String JWT_SECRET = "jwt_secret_!@#$%";
+    public static final String JWT_SECRET = jwtSecret;
 
     public static String generateJwtToken(UserDetailsImpl userDetails) {
         String token = null;
