@@ -37,13 +37,13 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
         // JWT 값을 담아주는 변수 TokenPayload
         String tokenPayload = request.getHeader("Authorization");
         if (tokenPayload == null) {
-            response.sendRedirect("/user/loginView");
-            return null;
+//            response.sendRedirect("/user/loginView");
+//            return null;
+            throw new IllegalArgumentException("토큰이 없습니다.");
         }
 
         JwtPreProcessingToken jwtToken = new JwtPreProcessingToken(
                 extractor.extract(tokenPayload, request));
-
         return super
                 .getAuthenticationManager()
                 .authenticate(jwtToken);
@@ -60,8 +60,9 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
          *  SecurityContext 사용자 Token 저장소를 생성합니다.
          *  SecurityContext 에 사용자의 인증된 Token 값을 저장합니다.
          */
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
+//        String jwtHeader = request.getHeader("Authorization");
 
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
         SecurityContextHolder.setContext(context);
 

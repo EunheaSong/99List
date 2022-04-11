@@ -1,6 +1,7 @@
 package com.hanghea.list99.security.provider;
 
 import com.hanghea.list99.security.UserDetailsImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,15 +12,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
 
+@RequiredArgsConstructor
 public class FormLoginAuthProvider implements AuthenticationProvider {
 
     @Resource(name="userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public FormLoginAuthProvider(BCryptPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+//    public FormLoginAuthProvider(BCryptPasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

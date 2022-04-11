@@ -1,19 +1,31 @@
 package com.hanghea.list99.dto;
 
 import com.hanghea.list99.domain.Plan;
+import com.hanghea.list99.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class UserDto {
+    private Long id;
 
     private String userId;
 
-    private String userPw;
+    private List<PlanDto.Response> plans;
 
-    private String pwCheck;
-
-    private List<PlanDto> plans;
+    public UserDto (User user){
+        this.setId(user.getId());
+        this.setUserId(user.getUserId());
+        for(Plan p : user.getPlans()){
+            PlanDto.Response planDto = new PlanDto.Response(p);
+            this.getPlans().add(planDto);
+        }
+    }
 
 }

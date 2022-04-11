@@ -28,7 +28,7 @@ public class FormLoginFilter extends UsernamePasswordAuthenticationFilter {
             //objectMapper를 통해서 Json을 자바 형태로 전환해준다.
             JsonNode requestBody = objectMapper.readTree(request.getInputStream());
             String username = requestBody.get("userId").asText();
-            String password = requestBody.get("password").asText();
+            String password = requestBody.get("userPw").asText();
             authRequest = new UsernamePasswordAuthenticationToken(username, password);
             //objectMapper에서 받아온 username과 password를 토큰으로 생성해준다.
         } catch (Exception e) {
