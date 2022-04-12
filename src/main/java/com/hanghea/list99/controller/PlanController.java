@@ -13,6 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class PlanController {
@@ -21,6 +23,7 @@ public class PlanController {
     private final PlanRepository planRepository;
 
     @GetMapping("/api/plan")
+    @ResponseBody
     public Page<Plan> getPlans(
             @RequestParam("page") int page,
             @RequestParam("size") int size,
@@ -30,7 +33,10 @@ public class PlanController {
     ){
         Long userId = userDetails.getUser().getId();
         page = page - 1 ;
-        return planService.getPlans(userId, page, size, sortBy, isAsc);
+
+        Page<Plan> target =planService.getPlans(userDetails.getUser(), page, size, sortBy, isAsc);
+
+        return target;
     }
 //    public List<Plan> getPlans(@AuthenticationPrincipal UserDetailsImpl userDetails){
 //        User user = userDetails.getUser();
