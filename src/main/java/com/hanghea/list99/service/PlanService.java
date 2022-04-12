@@ -30,19 +30,26 @@ public class PlanService {
 
     }
 
-    public List<Plan> getPlans(User user) {
-//        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
-//        Sort sort = Sort.by(direction, sortBy);
-//        Pageable pageable = PageRequest.of(page, size, sort);
-//        Page<Plan> planList = planRepository.findAllByUserId(userId, pageable);
+    public Page<Plan> getPlans(User user, int page, int size, String sortBy, boolean isAsc) {
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<Plan> planList = planRepository.findAllByUser(user, pageable);
 //        Page<PlanDto.Response> responseList = new ArrayList<>();
 //        for (Plan plan : planList) {
 //            PlanDto.Response response = new PlanDto.Response(plan);
 //            responseList.add(response);
 //        }
-
-        return planRepository.findAllByUserId(user.getId());
+        for(Plan plan : planList){
+            plan.setUser(null);
+        }
+        return planList;
     }
+
+//    public List<Plan> getPlans(User user){
+//        Long userId= user.getId();
+//        return planRepository.findAllByUserId(userId);
+//    }
 
     public void validatePlan(Plan plan) {
         String title = plan.getTitle();

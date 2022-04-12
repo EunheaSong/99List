@@ -8,14 +8,14 @@ import com.hanghea.list99.security.UserDetailsImpl;
 import com.hanghea.list99.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-//@Controller
+@Controller
 @RequiredArgsConstructor
 public class PlanController {
 
@@ -23,32 +23,34 @@ public class PlanController {
     private final PlanRepository planRepository;
 
     @GetMapping("/api/plan")
-//    public Page<Plan> getPlans(
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy,
-//            @RequestParam("isAsc") boolean isAsc,
-//            @AuthenticationPrincipal UserDetailsImpl userDetails
-//    ){
-//        Long userId = userDetails.getUser().getId();
-//        page = page - 1 ;
-//        return planService.getPlans(userId, page, size, sortBy, isAsc);
-//    }
-    public List<Plan> getPlans(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        User user = userDetails.getUser();
-        return planService.getPlans(user);
+    @ResponseBody
+    public Page<Plan> getPlans(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam("isAsc") boolean isAsc,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ){
+        Long userId = userDetails.getUser().getId();
+        page = page - 1 ;
+
+        Page<Plan> target =planService.getPlans(userDetails.getUser(), page, size, sortBy, isAsc);
+
+        return target;
     }
+//    public List<Plan> getPlans(@AuthenticationPrincipal UserDetailsImpl userDetails){
+//        User user = userDetails.getUser();
+//        return planService.getPlans(user);
+//    }
 
     //plan 등록 테스트
     @PostMapping("/api/plan")
-    public void createPlans(@RequestBody PlanDto.Request request, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public ResponseEntity<String> createPlans(@RequestBody PlanDto.Request request, @AuthenticationPrincipal UserDetailsImpl userDetails){
 
         User user = userDetails.getUser();
         planService.createPlans(request, user);
+        return ResponseEntity.ok().body("plan 등록 완료");
     }
-
-
-
     // plan 수정
     @PutMapping("/api/plan/{planId}")
     public Long updatePlan(@PathVariable Long planId, @RequestBody PlanDto.Request request) {
