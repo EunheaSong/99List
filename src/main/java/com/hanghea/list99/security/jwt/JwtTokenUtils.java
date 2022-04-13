@@ -19,14 +19,15 @@ public final class JwtTokenUtils {
     // JWT 토큰의 유효기간: 3일 (단위: milliseconds)
     private static final int JWT_TOKEN_VALID_MILLI_SEC = JWT_TOKEN_VALID_SEC * 1000;
 
-    @Value("${jwt.secret}")
-    public static String jwtSecret;
+//    @Value("${jwt.secret}")
+//    public static String jwtSecret;
 
     public static final String CLAIM_EXPIRED_DATE = "EXPIRED_DATE";
     public static final String CLAIM_USER_NAME = "USER_NAME";
-    public static final String JWT_SECRET = jwtSecret;
+    public static final String JWT_SECRET = "jwt_secret_!@#$%";
 
     public static String generateJwtToken(UserDetailsImpl userDetails) {
+        System.out.println("userDetails.getUsername() = " + userDetails.getUsername());
         String token = null;
         try {
             token = JWT.create()
@@ -38,7 +39,7 @@ public final class JwtTokenUtils {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        System.out.println("JwtTokenUtils token = " + token);
         return token;
     }
 

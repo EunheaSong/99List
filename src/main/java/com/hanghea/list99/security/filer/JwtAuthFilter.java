@@ -36,6 +36,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
 
         // JWT 값을 담아주는 변수 TokenPayload
         String tokenPayload = request.getHeader("Authorization");
+        System.out.println("JwtAuthFilter tokenPayload = " + tokenPayload);
         if (tokenPayload == null) {
 //            response.sendRedirect("/user/loginView");
 //            return null;
@@ -60,7 +61,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
          *  SecurityContext 사용자 Token 저장소를 생성합니다.
          *  SecurityContext 에 사용자의 인증된 Token 값을 저장합니다.
          */
-//        String jwtHeader = request.getHeader("Authorization");
+        String jwtHeader = request.getHeader("Authorization");
 
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
