@@ -68,7 +68,8 @@ public class PlanController {
 //        planService.check(planId, response);
 //        return planId;
 //    }
-    //포스트맨에서 테스트 시 ,
+
+    //plan 체크박스 클릭
     @PatchMapping("/api/plan/{planId}/status")
     public ResponseEntity<String> checkPlan(@PathVariable Long planId) {
         Plan p = planService.check(planId);
