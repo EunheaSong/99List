@@ -25,7 +25,7 @@ public class ExControllerAdvice {
 //        return ResponseEntity.badRequest()
 //                .body(new ErrorResult(HttpStatus.BAD_REQUEST, builder.toString()));
 //    }
-
+    //회원가입 유효성 검사에러
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public ErrorResult illegalExHandle(IllegalArgumentException e){
@@ -33,11 +33,15 @@ public class ExControllerAdvice {
         return new ErrorResult("false", e.getMessage());
     }
 
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalStateException.class)
     public ErrorResult illegalStateHandle(IllegalStateException e){
         return new ErrorResult("false", e.getMessage());
     }
 
-
-}
+/* 추가해볼 예외상황
+* 로그인시, 아이디 비밀번호가 일치하지 않을 때
+*
+* */
+  }

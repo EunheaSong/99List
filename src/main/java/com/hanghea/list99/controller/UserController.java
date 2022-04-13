@@ -7,6 +7,7 @@ import com.hanghea.list99.exceptionHandler.ErrorResult;
 import com.hanghea.list99.security.UserDetailsImpl;
 import com.hanghea.list99.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RequestMapping("/user")
 @RequiredArgsConstructor
 @RestController
@@ -31,20 +33,28 @@ public class UserController {
     //회원가입 2.
     @PostMapping("/join")
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserRequestDto requestDto) {
-        System.out.println(requestDto);
         userService.registerUser(requestDto);
-        System.out.println("회원가입 완료");
+        log.info("회원가입 완료");
         return ResponseEntity.ok()
                 .body("회원가입 완료");
     }
+
+    //아이디 중복 조회
+//    @PostMapping("/")
+//    public ResponseEntity<String> registerUser(@Valid @RequestBody UserRequestDto requestDto) {
+//
+//        log.info("");
+//        return ResponseEntity.ok()
+//                .body("");
+//    }
 
 
 //    사용자 정보 조회 1.
     //get 요청을 보내면 안됐다.
     @PostMapping("/isLogin")
-    public ResponseEntity<UserDto> getUserProfile(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        System.out.println(userDetails.getUsername());
-        return ResponseEntity.ok().body(userService.getUserInfo(userDetails.getUser()));
+    public ResponseEntity<String> getUserProfile(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        log.info(userDetails.getUsername());
+        return ResponseEntity.ok().body(userDetails.getUsername());
     }
     //사용자 정보 조회 2.
 //    @GetMapping("/isLogin")
