@@ -129,6 +129,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 회원 관리 API 허용
         skipPathList.add("GET,/user/**");
         skipPathList.add("POST,/user/join");
+        //회원 탈퇴 API 토큰 없어도 가능하게 허용
+        skipPathList.add("POST,/user/remove");
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");

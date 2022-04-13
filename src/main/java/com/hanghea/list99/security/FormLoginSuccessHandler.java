@@ -1,8 +1,7 @@
 package com.hanghea.list99.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hanghea.list99.domain.User;
-import com.hanghea.list99.dto.UserDto;
+
 import com.hanghea.list99.security.jwt.JwtTokenUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;

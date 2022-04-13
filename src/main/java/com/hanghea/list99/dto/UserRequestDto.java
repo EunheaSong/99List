@@ -1,10 +1,15 @@
 package com.hanghea.list99.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class UserRequestDto { //회원가입 요청 정보를 받아줄 녀석
 
@@ -18,6 +23,11 @@ public class UserRequestDto { //회원가입 요청 정보를 받아줄 녀석
 
 //    @NotBlank(message = "비밀번호 재확인을 해주세요.")
     private String pwCheck;
+
+    public UserRequestDto (String userId, String userPw){
+        this.setUserId(userId);
+        this.setUserId(userPw);
+    }
 
 
 }

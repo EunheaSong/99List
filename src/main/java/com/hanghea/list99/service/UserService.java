@@ -1,16 +1,21 @@
 package com.hanghea.list99.service;
 
+
+
 import com.hanghea.list99.domain.User;
 import com.hanghea.list99.dto.UserDto;
 import com.hanghea.list99.dto.UserRequestDto;
 import com.hanghea.list99.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotBlank;
+import javax.annotation.Resource;
+
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +25,7 @@ import java.util.regex.Pattern;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -93,10 +99,13 @@ public class UserService {
 //    }
 
     //유저 탈퇴
-    public void remove (Long id) {
-        User user = userRepository.findById(id).orElseThrow(
+    public void remove (UserRequestDto requestDto) {
+        User user = userRepository.findUserByUserId(requestDto.getUserId()).orElseThrow(
                 ()-> new IllegalArgumentException("사용자가 없습니다.")
         );
+        if (!passwordEncoder.matches(requestDto.getUserPw(), user.getUserPw())) {
+            throw new BadCredentialsException("사용자 정보가 일치 하지 않습니다.");
+        }
         userRepository.delete(user);
     }
 

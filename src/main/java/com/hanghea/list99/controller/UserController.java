@@ -8,7 +8,9 @@ import com.hanghea.list99.security.UserDetailsImpl;
 import com.hanghea.list99.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -71,9 +73,21 @@ public class UserController {
 //    }
 
     //유저 탈퇴 .2
+//    @PostMapping("/remove")
+//    public ResponseEntity userRemove(@RequestBody UserRequestDto requestDto){
+//        try {
+//            userService.remove(requestDto);
+//            return new ResponseEntity ("회원 탈퇴가 완료되었습니다." , HttpStatus.OK);
+//        }catch (IllegalArgumentException e){
+//            return new ResponseEntity (e.getMessage(), HttpStatus.NOT_FOUND);
+//        }catch (BadCredentialsException e){
+//            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
     @PostMapping("/remove")
-    public ResponseEntity<String> userRemove(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        userService.remove(userDetails.getUser().getId());
+    public ResponseEntity<String> userRemove(@RequestBody UserRequestDto requestDto) {
+        userService.remove(requestDto);
         return ResponseEntity.ok().body("회원 탈퇴가 완료되었습니다.");
     }
 }

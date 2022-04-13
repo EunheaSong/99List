@@ -61,7 +61,7 @@ public class JwtAuthFilter extends AbstractAuthenticationProcessingFilter {
          *  SecurityContext 사용자 Token 저장소를 생성합니다.
          *  SecurityContext 에 사용자의 인증된 Token 값을 저장합니다.
          */
-        String jwtHeader = request.getHeader("Authorization");
+//        String jwtHeader = request.getHeader("Authorization");
 
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authResult);
