@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class PlanController {
 
@@ -23,7 +23,6 @@ public class PlanController {
     private final PlanRepository planRepository;
 
     @GetMapping("/api/plan")
-    @ResponseBody
     public Page<Plan> getPlans(
             @RequestParam("page") int page,
             @RequestParam("size") int size,
