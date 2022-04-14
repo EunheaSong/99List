@@ -16,6 +16,17 @@ Frontend(React) :
     이경태
 https://github.com/hanghaeMini2-FrontEnd/TodoList
 
+
+<br>
+
+# 99List 는 ?
+
+해야할 일들을 TO-DO List로 등록하고 관리할 수 있게하는 간단한 to-do list 서비스.
+타 유저와 공유 없이, 로그인한 본인의 목록만 확인하는 프라이빗한 투두리스트입니다!
+
+<br>
+
+
 <br>
 
 🛠 사용 기술
@@ -28,14 +39,12 @@ https://github.com/hanghaeMini2-FrontEnd/TodoList
 - AWS
 - GitHub
 
+
+
+Notion Postman
+https://www.notion.so/99-A-4-8c535480c3034fdab460445e05542d66
+
 <br>
-
-# 99List 는 ?
-
-해야할 일들을 TO-DO List로 등록하고 관리할 수 있게하는 간단한 to-do list 서비스.
-타 유저와 공유 없이, 로그인한 본인의 목록만 확인하는 프라이빗한 투두리스트입니다!
-
-
 
 # 다가왔던 문제들과 해결방안
 - 그래이들에서 build 후 서버에 올려서 build 파일을 실행할때,  jwt class를 찾지 못하는 문제.
@@ -72,6 +81,6 @@ https://github.com/hanghaeMini2-FrontEnd/TodoList
     return newResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
     }
     ```
+    
+    <br>
 
-Notion Postman
-https://www.notion.so/99-A-4-8c535480c3034fdab460445e05542d66
