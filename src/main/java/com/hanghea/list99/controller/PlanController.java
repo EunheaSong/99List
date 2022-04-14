@@ -70,10 +70,11 @@ public class PlanController {
         return ResponseEntity.ok().body("게시물 삭제 완료!");
     }
 
-    @GetMapping("/api/plan/{planId}/detail")
-    public PlanDto.Response getPlanDetail(@PathVariable Long planId){
-        return planService.getPlanDetail(planId);
-    }
+    // plan 상세 조회 페이지
+//    @GetMapping("/api/plan/{planId}/detail")
+//    public PlanDto.Response getPlanDetail(@PathVariable Long planId){
+//        return planService.getPlanDetail(planId);
+//    }
 
 
 }

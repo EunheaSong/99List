@@ -71,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                //.and().exceptionHandling().authenticationEntryPoint(/*filter 에서의 exception 처리 */);
 
         /*
          * 1.
@@ -163,7 +164,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-//        configuration.addAllowedOrigin("https://hometmate.com");
+        configuration.addAllowedOrigin("http://mytodolist1.s3-website.ap-northeast-2.amazonaws.com/*");
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.setAllowCredentials(true);
         configuration.addAllowedMethod("*");

@@ -38,6 +38,7 @@ public class PlanService {
         for(Plan plan : planList){
             plan.setUser(null);
         }
+        Page<PlanDto.Response> planResponseList;
         return planList;
     }
     public void validatePlan(Plan plan) {
