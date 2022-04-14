@@ -35,37 +35,26 @@ public class PlanService {
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<Plan> planList = planRepository.findAllByUser(user, pageable);
-//        Page<PlanDto.Response> responseList = new ArrayList<>();
-//        for (Plan plan : planList) {
-//            PlanDto.Response response = new PlanDto.Response(plan);
-//            responseList.add(response);
-//        }
         for(Plan plan : planList){
             plan.setUser(null);
         }
         return planList;
     }
-
-//    public List<Plan> getPlans(User user){
-//        Long userId= user.getId();
-//        return planRepository.findAllByUserId(userId);
-//    }
-
     public void validatePlan(Plan plan) {
         String title = plan.getTitle();
         String content = plan.getContent();
         int stars = plan.getStars();
 
         if (title == null || title.equals("")) {
-            throw new IllegalStateException("제목이 올바르지 않습니다.");
+            throw new IllegalArgumentException("제목이 올바르지 않습니다.");
         }
 
         if (content == null || content.equals("")) {
-            throw new IllegalStateException("내용이 올바르지 않습니다.");
+            throw new IllegalArgumentException("내용이 올바르지 않습니다.");
         }
 
         if (stars < 0 || stars > 5) {
-            throw new IllegalStateException("중요도의 범위가 올바르지 않습니다.");
+            throw new IllegalArgumentException("중요도의 범위가 올바르지 않습니다.");
         }
 
     }
@@ -77,14 +66,6 @@ public class PlanService {
         );
         plan.update(request);
     }
-    // 체크 박스
-//    @Transactional
-//    public void check(Long planId, PlanDto.Response response) {
-//        Plan planCheck = planRepository.findById(planId).orElseThrow(
-//                () -> new IllegalArgumentException("PlanId가 존재하지 않습니다.")
-//        );
-//        planCheck.check(response);
-//    }
 
     @Transactional
     public Plan check(Long planId) {
@@ -93,4 +74,10 @@ public class PlanService {
         );
     }
 
+    public PlanDto.Response getPlanDetail(Long planId) {
+        Plan plan = planRepository.findById(planId).orElseThrow(
+                () -> new IllegalArgumentException("PlanId가 존재하지 않습니다.")
+        );
+        return new PlanDto.Response(plan);
+    }
 }
