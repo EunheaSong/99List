@@ -40,10 +40,6 @@ https://github.com/hanghaeMini2-FrontEnd/TodoList
 - GitHub
 
 
-
-Notion Postman
-https://www.notion.so/99-A-4-8c535480c3034fdab460445e05542d66
-
 <br>
 
 # 다가왔던 문제들과 해결방안
